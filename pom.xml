@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.myproject</groupId>
+	<artifactId>demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>demo</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<repositories>
+        <repository>
+            <id>com.ibm.db2.jcc</id>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+        </repository>        
+    </repositories>
+    
+	<dependencies>
+		<!-- <dependency>
+		    <artifactId>..</artifactId>
+		    <groupId>..</groupId>
+		    <scope>system</scope>
+		    <systemPath>${basedir}/ibm-ssl-truststore.jks</systemPath>
+		</dependency> -->
+		<dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jdbc-core</artifactId>
+		    <version>1.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+         <groupId>com.spotify</groupId>
+         <artifactId>docker-maven-plugin</artifactId>
+         <version>1.0.0</version>
+         
+         <configuration>
+            <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+            <dockerDirectory>src/main/docker</dockerDirectory>
+            <OutputFile>${project.build.directory}/ibm-ssl-truststore.jks</OutputFile>
+            <resources>
+               <!-- <resource>
+                  <directory>${project.build.directory}</directory>
+                  <include>${project.build.finalName}.jar</include>
+                  <directory>/</directory>
+                  <include>ibm-ssl-truststore.jks</include>
+               </resource> -->
+               <resource>
+            <directory>${basedir}/src/main/resources</directory>
+	            <targetPath>/</targetPath>
+	            <filtering>false</filtering>
+	        </resource>
+            </resources>
+         </configuration>
+      </plugin>
+			<!-- <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-jar-plugin</artifactId>
+		        <version>3.2.0</version>
+		        <configuration>
+		          <includes>
+		            <include>${basedir}/target/ibm-ssl-truststore.jks</include>
+		          </includes>
+		        </configuration>
+		      </plugin> -->
+			
+			
+			<!-- <plugin>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>2.6</version>
+	<executions>
+		<execution>
+					<id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+			<configuration>
+				<outputDirectory>${basedir}/target</outputDirectory>
+				<resources>
+					<resource>
+						<sourcePath>${basedir}/target/resources</sourcePath>
+						<directory>resources</directory>
+					</resource>
+				</resources>
+			</configuration>
+		</execution>
+	</executions>
+	</plugin> -->
+			
+			
+			
+		</plugins>
+	</build>
+
+</project>
