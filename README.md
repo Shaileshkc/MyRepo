@@ -1,3 +1,3 @@
 # DemoOne
 
-just for checking
+Just for checking
